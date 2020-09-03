@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destanti.MovieDB.Base.Injection
@@ -62,6 +63,7 @@ class MovieListActivity: AppCompatActivity(), MovieListContract.View {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                     mPresenter?.nextPage()
+                    progressBar.isVisible = true
                 }
 
                 super.onScrolled(recyclerView, dx, dy)
@@ -71,11 +73,14 @@ class MovieListActivity: AppCompatActivity(), MovieListContract.View {
     }
 
     override fun showMovie(movie: List<MovieListResult>) {
+
+        progressBar.isVisible = false
         movieList.addAll(movie)
         rvAdapter.notifyDataSetChanged()
     }
 
     override fun showError() {
+        progressBar.isVisible = false
 
     }
 
