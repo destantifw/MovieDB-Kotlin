@@ -1,23 +1,20 @@
 package com.destanti.MovieDB.data.Model
 
+import com.google.gson.annotations.SerializedName
 
-import kotlinx.serialization.*
 
-
-@Serializable
 data class ReviewModel (
     val id: Long,
     val page: Long,
     val results: List<ReviewResult>,
 
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Long,
 
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Long
 )
 
-@Serializable
 data class ReviewResult (
     val id: String,
     val author: String,
