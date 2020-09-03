@@ -1,5 +1,6 @@
 package com.destanti.MovieDB.Features.MovieList
 
+import android.util.Log
 import com.destanti.MovieDB.Services.MovieDataSource
 import com.destanti.MovieDB.data.Model.MovieList
 import com.destanti.MovieDB.data.Model.ReviewModel
@@ -12,11 +13,13 @@ class MovieListPresenter(
 
     val cbMovie = object : MovieDataSource.LoadMovieListByGenreCallback {
         override fun onFailed(throwable: Throwable) {
+            Log.d("scroll", "onScrolled: error")
             print("presenter error"+ throwable.toString())
         }
 
         override fun onSuccess(movies: MovieList) {
             currentPage = movies.page
+            totalPage = movies.totalPages
             view.showMovie(movies.results)
         }
     }
@@ -34,7 +37,6 @@ class MovieListPresenter(
     }
 
     override fun nextPage() {
-        print("nextpage")
         val page = currentPage + 1
         if (page < totalPage) {
             repository.getMovieListByGenre(genreId, page, cbMovie)

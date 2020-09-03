@@ -2,6 +2,7 @@ package com.destanti.MovieDB.Features.MovieList
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,11 +58,9 @@ class MovieListActivity: AppCompatActivity(), MovieListContract.View {
             startActivity(intent)
         }
 
-        rvMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        rvMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-
-                if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount-1){
+                if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                     mPresenter?.nextPage()
                 }
 
